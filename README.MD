@@ -202,3 +202,125 @@ os.replace("teste_alfa.txt", "teste_beta.txt")
 
 - Sempre trate exceções para evitar que seu programa seja interrompido inesperadamente.
 
+# Manipulação de Diretórios com Python
+
+Conhecer operações com diretórios em Python é essencial para organizar e gerenciar dados em projetos. Essas operações incluem **criação**, **remoção** e **listagem de diretórios**, permitindo uma estruturação adequada dos arquivos.
+
+O domínio dessas técnicas facilita a automação de tarefas, melhora a manutenção do sistema e garante um ambiente de trabalho mais organizado e eficiente.
+
+---
+
+## Conteúdo
+
+1. [Criando e Removendo Diretórios](#criando-e-removendo-diretórios)  
+2. [Tratando Exceções Comuns](#tratando-exceções-comuns)  
+3. [Listando Conteúdo de Diretórios](#listando-conteúdo-de-diretórios)  
+
+---
+
+## Criando e Removendo Diretórios
+
+Para **criar** um diretório, utilizamos a função `mkdir` do módulo `os`.  
+Para **remover** um diretório, utilizamos a função `rmdir` do módulo `os`.
+
+**Sintaxe:**
+
+```python
+import os
+
+# Criar diretório
+os.mkdir("meu_diretorio")
+
+# Remover diretório
+os.rmdir("meu_diretorio")
+```
+
+**Exemplo:**
+
+```python
+import os
+
+# Criar diretório
+os.mkdir("meu_diretorio")
+print("Diretório criado!")
+
+# Remover diretório
+os.rmdir("meu_diretorio")
+print("Diretório removido!")
+```
+
+---
+
+## Tratando Exceções Comuns
+
+Ao criar ou remover diretórios, podem ocorrer exceções:
+
+### Criação de diretórios (`mkdir`)
+
+- `PermissionError`: sem permissão para criar o diretório  
+- `FileExistsError`: diretório já existe  
+
+### Remoção de diretórios (`rmdir`)
+
+- `PermissionError`: sem permissão para remover  
+- `FileNotFoundError`: diretório não existe  
+- `OSError`: diretório não está vazio  
+
+**Exemplo com `OSError` e módulo `errno`:**
+
+```python
+import os
+import errno
+
+try:
+    os.rmdir("meu_diretorio")
+except OSError as erro:
+    print("Número do erro:", erro.errno)
+    if erro.errno == errno.ENOTEMPTY:
+        print("Erro: Diretório não está vazio!")
+```
+
+> Observação: a exceção `OSError` é mais abrangente e deve ser tratada por último.
+
+---
+
+## Listando Conteúdo de Diretórios
+
+Para listar arquivos e subdiretórios de um diretório, utilizamos `os.scandir`.
+
+**Sintaxe:**
+
+```python
+import os
+
+with os.scandir("meu_diretorio") as entradas:
+    for entrada in entradas:
+        print(entrada.name, "-> Diretório" if entrada.is_dir() else "-> Arquivo")
+```
+
+- `entrada.name`: nome do arquivo ou diretório  
+- `entrada.path`: caminho completo  
+- `entrada.is_dir()`: verifica se é diretório  
+- `entrada.is_file()`: verifica se é arquivo  
+- `entrada.stat()`: retorna atributos como tamanho, data de modificação, etc.
+
+**Exemplo:**
+
+```python
+import os
+
+os.mkdir("meu_diretorio")  # criando para exemplo
+with open("meu_diretorio/arquivo1.txt", "w") as f:
+    f.write("Olá!")
+
+with os.scandir("meu_diretorio") as entradas:
+    for entrada in entradas:
+        tipo = "Diretório" if entrada.is_dir() else "Arquivo"
+        print(entrada.name, "->", tipo)
+```
+
+---
+
+Este README oferece um guia completo para criar, remover e listar diretórios em Python, tratando exceções comuns e garantindo um código mais robusto e organizado.
+
+
