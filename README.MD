@@ -1,0 +1,103 @@
+# 🛠️ Tratamento de Exceções na Manipulação de Arquivos em Python
+
+Durante a manipulação de arquivos, problemas como arquivos inexistentes ou falta de permissões são comuns e só podem ser detectados em tempo de execução. Sem tratamento adequado, essas exceções podem interromper o programa e comprometer a experiência do usuário e a integridade dos dados.
+
+---
+
+## 📌 Conceito de Exceção
+
+Quando ocorre um problema inesperado que o interpretador Python não consegue resolver, dizemos que houve uma **exceção**.  
+Exemplos comuns em manipulação de arquivos:
+
+- **FileNotFoundError** → arquivo não existe.  
+- **PermissionError** → sem permissão de acesso.  
+- **FileExistsError** → tentativa de criar arquivo ou diretório já existente.  
+
+> Praticamente todas as exceções herdam da classe `Exception`. Quanto mais específica a exceção, melhor é o tratamento.
+
+---
+
+## 🧑‍💻 Tratando Exceções com `try` / `except`
+
+A sintaxe básica:
+
+```python
+try:
+    # Código que pode gerar erro
+except TipoDeErro as erro:
+    # Código que será executado caso ocorra a exceção
+```
+
+- O código crítico vai dentro do `try`.  
+- O código alternativo ou de aviso vai dentro do `except`.  
+- Podemos ter **múltiplos excepts** para diferentes tipos de exceção.
+
+---
+
+## 🔹 Exemplo 1: Arquivo inexistente
+
+```python
+try:
+    with open("teste.txt", "r") as arquivo:
+        conteudo = arquivo.read()
+except FileNotFoundError as erro:
+    print("Arquivo inexistente.")
+    print("Detalhes do erro:", erro)
+```
+
+**Explicação:**
+
+1. Tentamos abrir o arquivo `teste.txt` para leitura.  
+2. Como ele não existe, o Python lança `FileNotFoundError`.  
+3. O código dentro do `except` é executado, exibindo uma mensagem amigável e os detalhes do erro.  
+
+---
+
+## 🔹 Exemplo 2: Arquivo sem permissão
+
+```python
+try:
+    with open("teste.pdf", "w") as arquivo:
+        arquivo.write("Conteúdo qualquer")
+except PermissionError as erro:
+    print("Sem permissão para acessar o arquivo.")
+    print("Detalhes do erro:", erro)
+```
+
+**Explicação:**
+
+- Tentamos abrir o arquivo `teste.pdf` para escrita.  
+- Se o arquivo estiver aberto em outro programa ou sem permissão, Python lança `PermissionError`.  
+- O fluxo pula para o `except` correspondente, evitando que o programa quebre.
+
+---
+
+## ⚠️ Boas práticas
+
+- **Use exceções específicas** sempre que possível (`FileNotFoundError`, `PermissionError`).  
+- Evite capturar exceções genéricas como `Exception`, pois podem silenciar erros inesperados.  
+- Consulte a documentação das funções que você utiliza para identificar quais exceções podem ser lançadas.  
+
+---
+
+## 🔹 Hierarquia de exceções relacionadas a arquivos
+
+```
+Exception
+ └── OSError
+      ├── FileNotFoundError
+      ├── PermissionError
+      └── FileExistsError
+```
+
+---
+
+## 🎯 Objetivo educacional
+
+- Garantir que o programa continue rodando mesmo em situações de erro.  
+- Fornecer mensagens claras ao usuário sobre o problema.  
+- Tornar o código mais robusto e confiável.  
+
+---
+
+> Observação: O tratamento de exceções é essencial em qualquer aplicação real que manipule arquivos, evitando travamentos e perda de dados.
