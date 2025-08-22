@@ -101,3 +101,104 @@ Exception
 ---
 
 > Observação: O tratamento de exceções é essencial em qualquer aplicação real que manipule arquivos, evitando travamentos e perda de dados.
+
+
+
+# Operações Adicionais em Arquivos com Python
+
+Conhecer as operações com arquivos em Python é fundamental para qualquer desenvolvedor que lide com manipulação de dados. Além da leitura e escrita, operações como **remoção** e **renomeação** de arquivos são essenciais para automatizar tarefas, organizar informações e manter a integridade dos dados.
+
+Compreender como realizar essas operações de forma eficiente e segura permite desenvolver aplicações mais robustas e confiáveis, evitando problemas como perda de dados ou interrupções inesperadas do programa.
+
+---
+
+## Conteúdo
+
+1. [Remover Arquivos](#remover-arquivos)  
+2. [Renomear Arquivos](#renomear-arquivos)  
+3. [Exceções Comuns](#exceções-comuns)  
+4. [Dicas](#dicas)  
+
+---
+
+## Remover Arquivos
+
+Para remover um arquivo, utilizamos a função `remove` do módulo `os`.
+
+**Sintaxe:**
+
+```python
+import os
+
+os.remove(caminho)
+```
+
+- `caminho`: caminho para o arquivo que desejamos remover.  
+
+Para remover diretórios, usamos a função `rmdir` em vez de `remove`.
+
+**Exemplo:**
+
+```python
+import os
+
+# Remover arquivo teste.txt no mesmo diretório
+os.remove("teste.txt")
+```
+
+---
+
+## Renomear Arquivos
+
+Para renomear arquivos, utilizamos a função `rename` do módulo `os`.
+
+**Sintaxe:**
+
+```python
+import os
+
+os.rename(origem, destino)
+```
+
+- `origem`: caminho do arquivo atual  
+- `destino`: novo nome ou caminho do arquivo  
+
+**Exemplo:**
+
+```python
+import os
+
+# Renomear teste_alfa.txt para teste_beta.txt
+os.rename("teste_alfa.txt", "teste_beta.txt")
+```
+
+---
+
+## Exceções Comuns
+
+### Função `remove`
+
+- `FileNotFoundError`: arquivo não existe  
+- `PermissionError`: sem permissão para alterar o arquivo  
+- `IsADirectoryError`: tentamos remover um diretório com `remove`  
+
+### Função `rename`
+
+- `FileNotFoundError`: arquivo de origem não existe  
+- `FileExistsError`: arquivo de destino já existe  
+- `PermissionError`: sem permissão para alterar o arquivo de origem ou criar o destino  
+
+---
+
+## Dicas
+
+- Para renomear **sobrescrevendo o arquivo destino**, caso ele exista, podemos usar a função `replace` do módulo `os`.  
+
+```python
+import os
+
+os.replace("teste_alfa.txt", "teste_beta.txt")
+```
+
+- Sempre trate exceções para evitar que seu programa seja interrompido inesperadamente.
+
