@@ -432,4 +432,91 @@ O script deve:
 ---
 
 
+# Organização de Arquivos por Extensão
+
+## Descrição
+
+Este projeto tem como objetivo a **organização automática de arquivos** em diretórios específicos de acordo com suas extensões.  
+Ele utiliza os módulos `os` e `shutil` para criar diretórios (se não existirem) e mover arquivos para suas respectivas pastas.
+
+---
+
+## Conteúdo da Atividade (Faculdade)
+
+Ao mover arquivos para diretórios específicos com base em suas extensões, você está aplicando conceitos de organização e automação, essenciais para a gestão eficiente de dados em projetos reais.
+
+Além disso, o uso do módulo `shutil` para operações de movimentação e o módulo `os` para verificação e criação de diretórios são práticas comuns em tarefas de administração de sistemas e desenvolvimento de software.
+
+Ao mover arquivos, independentemente da biblioteca ou do módulo utilizados, devemos dar atenção ao **tratamento de exceções**, garantindo que seu código seja capaz de lidar com situações inesperadas, como diretórios inexistentes ou falta de permissões.
+
+Essa prática prepara você para enfrentar desafios mais complexos em ambientes de **Front**, onde a integridade e a organização dos dados são prioritárias. Ao compreender e implementar essas operações, você melhora a eficiência e a confiabilidade dos seus scripts, facilitando a manutenção e a escalabilidade de suas aplicações.
+
+Neste exemplo, simulamos uma **biblioteca pública** que digitaliza documentos e salva arquivos em um diretório de trabalho.  
+O objetivo é desenvolver um script que mova automaticamente esses arquivos para subdiretórios com base em suas extensões.
+
+---
+
+## Tarefa
+
+- Verifique se os diretórios de destino (`pdf`, `txt`, `img`) existem; caso contrário, crie-os.  
+- Mova os arquivos do diretório de trabalho para os diretórios correspondentes com base em suas extensões.  
+- Trate possíveis exceções durante as operações, exibindo mensagens informativas ao usuário.
+
+---
+
+## Roteiro de prática
+
+### Passo 1: Preparação
+Crie um diretório de trabalho e adicione alguns arquivos de exemplo com diferentes extensões (`.pdf`, `.txt`, `.jpg`) nesse diretório.
+
+### Passo 2: Estrutura do código
+Importe os módulos necessários:
+- `os`
+- `shutil`
+
+O módulo **shutil** é especialmente útil para copiar, mover, renomear e remover arquivos e diretórios.
+
+### Passo 3: Função para criar diretórios
+Crie uma função que verifique se os diretórios existem e, caso não, crie-os.
+
+### Passo 4: Função para mover arquivos
+Crie uma função que mova os arquivos para os diretórios correspondentes com base em suas extensões.
+
+### Passo 5: Script principal
+No script principal:
+1. Defina o diretório de trabalho.  
+2. Chame as funções criadas para organizar os arquivos.
+
+### Passo 6: Teste e validação
+1. Execute o script e verifique se os arquivos foram movidos para os diretórios corretos (`pdf`, `txt`, `img`).  
+2. Simule exceções, como alterar permissões ou usar arquivos inexistentes, para validar o tratamento de erros.
+
+---
+
+## Resultado esperado
+
+- Os diretórios `pdf`, `txt` e `img` devem ser criados, caso não existam.  
+- Os arquivos devem ser movidos automaticamente para suas respectivas pastas com base nas extensões.  
+- O script deve exibir mensagens claras em caso de erro (como permissões insuficientes ou arquivo inexistente).
+
+---
+
+## Exemplo de Estrutura de Pastas
+
+```
+📂 trabalho/
+ ┣ 📜 documento.pdf   → 📂 pdf/
+ ┣ 📜 texto.txt       → 📂 txt/
+ ┣ 🖼️ imagem.jpg      → 📂 img/
+```
+
+---
+
+## Tecnologias Utilizadas
+
+- Python 3.8+
+- Módulos nativos: `os`, `shutil`
+
+
+
 
