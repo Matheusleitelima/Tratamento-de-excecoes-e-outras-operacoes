@@ -323,4 +323,113 @@ with os.scandir("meu_diretorio") as entradas:
 
 Este README oferece um guia completo para criar, remover e listar diretórios em Python, tratando exceções comuns e garantindo um código mais robusto e organizado.
 
+# 📂 Exceções e o módulo `os` em Python
+
+## 📌 Introdução
+A capacidade de ler, processar e escrever dados de maneira eficiente é importante para inúmeras aplicações, como processamento de dados, geração de relatórios e automação de tarefas.
+
+Além disso, o tratamento de exceções garante que o código seja **robusto** e capaz de lidar com situações inesperadas, como arquivos inexistentes ou falta de permissões, aumentando a confiabilidade e a resiliência das aplicações.
+
+A prática de ler um arquivo de texto, adicionar um cabeçalho e escrever o conteúdo em um novo arquivo permite aos desenvolvedores entenderem a importância de manipular arquivos de forma segura.  
+Compreender como tratar exceções específicas, como `FileNotFoundError` e `PermissionError`, ajuda a criar scripts que não falhem inesperadamente, proporcionando uma experiência de usuário mais estável e profissional.
+
+Ao dominar essas técnicas, você poderá criar soluções automatizadas que requerem manipulação de arquivos, essenciais em diversos campos da tecnologia.
+
+Neste exemplo, veremos uma situação prática para tratamento de exceções em leitura e escrita de arquivos. Adicionalmente, empregaremos o módulo **`os`**, presente na biblioteca padrão do Python e amplamente utilizado para referenciar caminhos no sistema operacional.
+
+---
+
+## 🎯 Situação-problema
+Você foi contratado por uma empresa para desenvolver um script em Python que automatize a organização de arquivos de texto.  
+
+A tarefa envolve:
+- Ler o conteúdo de arquivos
+- Processar as informações
+- Escrever em novos arquivos
+- Tratar exceções que possam surgir (como arquivos inexistentes ou falta de permissões)
+
+---
+
+## 📝 Tarefa
+Implemente um script em Python que realize as seguintes operações:
+
+1. Leia o conteúdo de um arquivo de texto.  
+2. Escreva o conteúdo lido em um novo arquivo, adicionando uma linha de cabeçalho.  
+3. Trate possíveis exceções durante as operações, exibindo mensagens informativas ao usuário.  
+
+---
+
+## 🛠️ Resolução
+
+### Passo 1: Preparação
+Crie um diretório de trabalho e coloque alguns arquivos de texto de exemplo (`.txt`) nesse diretório.
+
+### Passo 2: Estrutura do código
+Importe o módulo necessário:
+
+```python
+import os
+```
+
+### Passo 3: Função para ler e escrever arquivos
+Crie uma função para ler o conteúdo de um arquivo e escrever em um novo arquivo com uma linha de cabeçalho:
+
+```python
+def processar_arquivo(arquivo_origem, arquivo_destino):
+    try:
+        if not os.path.exists(arquivo_origem):
+            raise FileNotFoundError(f"O arquivo '{arquivo_origem}' não foi encontrado.")
+
+        with open(arquivo_origem, "r", encoding="utf-8") as f:
+            conteudo = f.read()
+
+        with open(arquivo_destino, "w", encoding="utf-8") as f:
+            f.write("=== Arquivo processado automaticamente ===\n")
+            f.write(conteudo)
+
+        print(f"✅ Arquivo processado com sucesso! Salvo em: {os.path.abspath(arquivo_destino)}")
+
+    except FileNotFoundError as e:
+        print(f"❌ Erro: {e}")
+
+    except PermissionError:
+        print(f"❌ Erro: Sem permissão para acessar ou criar '{arquivo_destino}'.")
+
+    except Exception as e:
+        print(f"⚠️ Ocorreu um erro inesperado: {e}")
+```
+
+### Passo 4: Script principal
+Defina os arquivos de origem e destino e chame a função criada:
+
+```python
+if __name__ == "__main__":
+    diretorio = os.getcwd()
+    arquivo_origem = os.path.join(diretorio, "arquivo_origem.txt")
+    arquivo_destino = os.path.join(diretorio, "arquivo_destino.txt")
+
+    processar_arquivo(arquivo_origem, arquivo_destino)
+```
+
+---
+
+## ✅ Teste e validação
+
+1. Crie um arquivo de texto chamado `arquivo_origem.txt` no diretório de trabalho e insira algum conteúdo.  
+2. Execute o script e verifique se o conteúdo foi escrito em `arquivo_destino.txt` com a linha de cabeçalho adicionada.  
+3. Simule diferentes exceções:
+   - Renomeie o arquivo para que não seja encontrado → `FileNotFoundError`  
+   - Remova permissões de escrita/leitura → `PermissionError`  
+
+---
+
+## 🎯 Resultado esperado
+O script deve:
+- Ler o conteúdo do arquivo `arquivo_origem.txt`  
+- Escrever esse conteúdo em `arquivo_destino.txt` com uma linha de cabeçalho  
+- Exibir mensagens informativas para qualquer exceção encontrada durante o processo  
+
+---
+
+
 
